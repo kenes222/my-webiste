@@ -1,0 +1,38 @@
+{% extends 'give/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Dashboard</h1>
+    <a href="{% url 'create_post' %}" class="btn btn-info">Create Post</a>
+    <a href="{% url 'portfolio' %}" class="btn btn-info">Portfolio</a>
+    <a href="{% url 'search' %}" class="btn btn-info">Search</a>
+    <a href="{% url 'chat_list' %}" class="btn btn-success">Chat</a>
+    <a href="{% url 'logout' %}" class="btn btn-danger">Log out</a>
+
+    <div class="post-list mt-3">
+        {% for post in posts %}
+        <div class="card mb-3 post-card" style="height: 100%;">
+            {% if post.photos.first %}
+            <div class="img-container" style="height: 200px; overflow: hidden;">
+                <img src="{{ post.photos.first.image.url }}" alt="{{ post.title }}" class="post-img img-fluid" style="height: 100%; object-fit: cover;">
+            </div>
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <h2 class="post-title">{{ post.title }}</h2>
+                <p class="post-description">{{ post.description|truncatewords:20 }}</p>
+                <p class="text-muted">Published on: {{ post.created_at|date:"F j, Y, g:i a" }}</p>
+                {% if post.country == "US" %}
+                    <p class="text-muted">Location: {{ post.city }}, {{ post.state }}, {{ post.country }}</p>
+                {% else %}
+                    <p class="text-muted">Location: {{ post.city }}, {{ post.country }}</p>
+                {% endif %}
+                <div class="mt-auto">
+                    <a href="{% url 'view_post' post.id %}" class="btn btn-info">View Post</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+

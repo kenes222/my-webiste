@@ -1,0 +1,14 @@
+{% extends 'give/base.html' %}
+
+{% block title %}Welcome to Our Site{% endblock %}
+
+{% block content %}
+<div class="text-center" style="margin-top: 20%;">
+    <h1>Welcome to Our Site!</h1>
+    <p>Get started by accessing your account or creating a new one.</p>
+    <div class="mt-4">
+        <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+        <a href="{% url 'signup' %}" class="btn btn-secondary">Create a New Account</a>
+    </div>
+</div>
+{% endblock %}
